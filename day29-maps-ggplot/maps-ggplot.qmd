@@ -10,12 +10,10 @@ library(tidyverse)
 
 ```
 
-
 ```{r}
 library(mdsr)
 library(sf)
 ```
-
 
 ```{r}
 library(ggspatial)
@@ -24,13 +22,10 @@ library(tidygeocoder)
 library(mapproj)
 ```
 
-
 ```{r}
 library(maps)
 
 ```
-
-
 
 ```{r}
 addresses<- tibble(address=c("Smith College", "2 Tyler Ct, Northampton, MA 01060", "Holyoke Community College")) |>
@@ -83,13 +78,4 @@ ma_counties |> ggplot(aes(long,lat))+
   
   #This is the default mapping. Think GPS
  coord_sf(default_crs= st_crs(4326) )
-```
-
-```{r}
-```
-
-```{r}
-```
-
-```{r}
 ```
