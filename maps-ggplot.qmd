@@ -61,9 +61,29 @@ ma_counties |> ggplot(aes(long,lat,group=group))+
 ```
 
 ```{r}
+#coord_sf()
+ma_counties |> ggplot(aes(long,lat,group=group))+
+  geom_polygon(fill = "white", colour = "grey50")+
+  geom_point()+
+  coord_sf()
 ```
 
+```{r}
+ma_cities <- us.cities |>
+  filter(country.etc =="MA") |>
+  select(name, long, lat)
 
+head(ma_cities)
+```
+
+```{r}
+```
+
+```{r}
+```
+
+```{r}
+```
 
 ```{r}
 ```
