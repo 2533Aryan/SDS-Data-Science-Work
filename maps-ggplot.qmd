@@ -79,7 +79,7 @@ head(ma_cities)
 ```{r}
 ma_counties |> ggplot(aes(long,lat))+
   geom_polygon(fill = "white", colour = "grey50",aes(group=group)) +
-  #geom_point(data=ma_cities,.......)
+  geom_point(data=ma_cities)
   
   #This is the default mapping. Think GPS
  coord_sf(default_crs= st_crs(4326) )
