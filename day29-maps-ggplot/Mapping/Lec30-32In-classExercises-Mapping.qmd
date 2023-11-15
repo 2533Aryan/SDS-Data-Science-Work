@@ -207,6 +207,67 @@ Create a map of Washington state showing all 39 counties using the `WA_counties`
 ```{r}
 # Write your code below
 
+wa_counties <- read_sf("WA_counties/") |>
+  st_transform(crs = 4326)
+
+# Plot this data!
+ggplot() +
+  geom_sf(data = bike_trails, color = "red")
+
+# The above map lacks context however. Where are these bikepaths?
+# Let's obtain a map of Massachusetts counties from the USAboundaries package
+
+bike_trails <- read_sf("biketrails_arc/") |>
+  st_transform(crs = 4326)
+
+
+# Convert maps package map object to sf object using st_as_sf() again:
+
+# Plot this data!
+ggplot() +
+  geom_sf(data = MA_counties)
+
+# Plot both maps by adding both layers!
+ggplot() +
+  geom_sf(data = bike_trails, color = "red") +
+  geom_sf(data= MA_counties,fill = "white", colour = "grey50")
+  
+
+# Where did our bike paths go? The order you plot in matters! Switch the two
+# geom_sf()
+ggplot() +
+  geom_sf(data= MA_counties,fill = "white", colour = "grey50") +
+  geom_sf(data = bike_trails, color = "red")
+
+#This is okay, but I want to use geom_sf() instead of geom_polygon()
+
+#We can do this if we get offical data like we did in class. Enter the location of your shape file. 
+
+# Better! But what are these counties? Let's mark each counties' centroid
+MA_counties <- MA_counties |>
+  # Add centroids to each region using purrr package (covered in SDS 270 I believe)
+  mutate(
+    lng = purrr::map_dbl(geometry, ~st_centroid(.x)[[1]]),
+    lat = purrr::map_dbl(geometry, ~st_centroid(.x)[[2]])
+    )
+MA_counties
+
+
+
+# Plot! Notice how we define data = in the geom_point() instead of the ggplot().
+# This sets the data set only for the geom_point() and not the other geoms.
+# Any data = defined in the global ggplot() trickles down by default to the other
+# geoms.
+ggplot() +
+  geom_sf(data = MA_counties, size = 0.5) +
+  geom_sf(data = bike_trails, color = "red") +
+  geom_point(data = MA_counties, aes(x = lng, y = lat)) 
+
+# Can we do better? Yes! Use geom_text() instead with the label aesthetic!
+ggplot() +
+  geom_sf(data = MA_counties, size = 0.5) +
+  geom_sf(data = bike_trails, color = "red") +
+  geom_text(data = MA_counties, aes(x = lng, y = lat, label = NAME)) 
 ```
 
 
