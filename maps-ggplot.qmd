@@ -42,19 +42,23 @@ addresses
 ```
 
 ```{r}
+ggplot(addresses) +
+  geom_point(aes(long,lat)) 
 
 ```
-
-
 
 ```{r}
-```
+ma_counties <- map_data("county", "massachusetts") %>% 
+  select( long, lat, group, id = subregion)
 
+head(ma_counties)
+```
 
 ```{r}
+ma_counties |> ggplot(aes(long,lat,group=group))+
+  geom_polygon(fill = "white", colour = "grey50")+
+  geom_point()  
 ```
-
-
 
 ```{r}
 ```
