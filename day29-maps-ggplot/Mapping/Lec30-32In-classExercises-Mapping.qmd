@@ -94,18 +94,21 @@ ma_counties <- map_data("county", "massachusetts") %>%
 ```{r}
 # Write your code below
 notable_city<- tibble(
-  address=c("Boston", "Northampton", "Easthampton")) |>
+  address=c("Boston",  "Northampton, MA", "Easthampton, MA", "Amherst, MA")) |>
   geocode(address, method = "osm") |>
   mutate(
-    name = c("Boston", "Northampton", "Easthampton")
+    name = c("Boston", "Northampton", "Easthampton", "Amherst")
 )
 
 #notable_city
 
-# Plot both layers:
-ggplot() +
-  geom_sf(data = notable_city) +
-  geom_sf(data = pres_2016_trail_sf, aes(color = candidate), size = 2)
+# Plot
+ma_counties |> ggplot(aes(long,lat))+
+  geom_polygon(fill = "white", colour = "grey50",aes(group=group)) +
+  geom_point(data=notable_city)
+  
+  #This is the default mapping. Think GPS
+ coord_sf(default_crs= st_crs(4326) )
 ```
 
 # 2. Loading shapefiles into R
