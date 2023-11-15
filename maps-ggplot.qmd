@@ -26,16 +26,23 @@ library(mapproj)
 
 
 ```{r}
+library(maps)
+
 ```
 
 
 
 ```{r}
+addresses<- tibble(address=c("Smith College", "2 Tyler Ct, Northampton, MA 01060", "Holyoke Community College")) |>
+geocode(address, method="osm") |>
+  mutate(name = c("Smith College","McConnell Hall","Holyoke Community College"))
+
+addresses
+
 ```
 
-
-
 ```{r}
+
 ```
 
 
